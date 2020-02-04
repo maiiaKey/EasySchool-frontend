@@ -1,16 +1,22 @@
 import React from 'react';
 import NavBar from './NavBar';
-import logo, { ReactComponent } from './logo.svg';
+import Login from './Login';
 import './App.css';
 
+
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <NavBar />
-      </div>
-    );
-  }
+    constructor(){
+      super();
+      this.state = {login: "", password: ""};
+    }
+
+    render() {
+      return (
+        <div>
+          <NavBar handlePopup={this.handleClick} visible={this.state.visible}/>
+        </div>
+      );
+    }
   
 }
 
