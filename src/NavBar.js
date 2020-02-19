@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './Login';
+import './Navbar.css';
 
 
 class NavBar extends React.Component {
