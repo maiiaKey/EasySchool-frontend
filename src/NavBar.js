@@ -9,7 +9,6 @@ class NavBar extends React.Component {
 
     handleVisible = () => {
         this.setState((prevState) => {
-            console.log(this.state.visible);
             return {
                 visible: !prevState.visible
             }
@@ -17,6 +16,7 @@ class NavBar extends React.Component {
         })
     }
     render() {
+
     return (
             <div>
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous"></link>
@@ -38,7 +38,11 @@ class NavBar extends React.Component {
                 </nav>
                 <Login visible={this.state.visible}
                        handleVisible={this.handleVisible} 
-                />
+                       getLogin={this.props.passLogin}
+                       getPassword={this.props.passPassword}
+                       login={this.props.login}
+                       password={this.props.password}/>
+            
             </div>
     )
     }

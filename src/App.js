@@ -10,10 +10,23 @@ class App extends React.Component {
       this.state = {login: "", password: ""};
     }
 
+    handleLogin = (logValue) => {
+      this.setState({login: logValue});
+    }
+
+    handlePassword = (logPass) => {
+      this.setState({password: logPass});
+    }
+
     render() {
       return (
         <div>
-          <NavBar handlePopup={this.handleClick} visible={this.state.visible}/>
+          <NavBar handlePopup={this.handleClick} 
+                  visible={this.state.visible} 
+                  passLogin={this.handleLogin.bind(this, 'login')} 
+                  passPassword={this.handlePassword.bind(this, 'password')} 
+                  login={this.state.login}
+                  password={this.state.password}/>
         </div>
       );
     }
