@@ -1,0 +1,39 @@
+
+.navbar {
+    background-image: none;
+    background: linear-gradient(to right, rgb(204, 170, 238), rgb(255, 204, 238)) !important;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Open Sans';
+    
+}
+.navbar-text {
+    color: #270132 !important;
+    
+}
+
+
+
+.nav-link {
+    color: #270132 !important;
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+    .navbar {
+        display: flex !important;
+        justify-content: flex-start !important;
+    }
+    ul {
+        display: inline-block !important;
+    }
+    li {
+        display: inline-block !important;
+        margin-left: 10px;
+    }
+
+    .nav-link {
+        font-size: 0.8rem !important;
+    }
+
+}

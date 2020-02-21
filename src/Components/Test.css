@@ -1,0 +1,35 @@
+
+.test {
+    color: #270132;
+    font-size: 1rem;
+    margin-left: 0;
+}
+.container {
+    padding-left: 0;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: #270132;
+    border-width: 0.07rem;
+    margin-top: 1rem;
+    background: linear-gradient(to right, rgb(204, 170, 238), rgb(255, 204, 238));
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+.clickable {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.clickable:hover {
+    text-decoration: none;
+}
+
+.title {
+    font-size: 1.3rem;
+} 
+
