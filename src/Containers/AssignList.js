@@ -2,34 +2,41 @@ import React from 'react';
 import NavBar from '../Components/NavBar';
 import DisplayAssign from '../Components/DisplayAssign';
 import './AssignList.css';
+import AddAss from '../Components/AddAss.js';
 
 class AssignList extends React.Component {
   constructor(props){
     super(props);
-    this.state = {login: this.props.login, password: this.props.password};
+    this.state = {login: this.props.login, password: this.props.password, teacher: this.props.teacher};
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.teacher !== prevProps.teacher) {
+        this.setState({teacher: this.props.teacher});
+    }
+}
 
   handleLogin = (logValue) => {
     this.setState({login: logValue});
   }
 
-  handlePassword = (logPass) => {
-    this.setState({password: logPass});
+  handlePassword = (passValue) => {
+    this.setState({password: passValue});
   }
     
     render(){
     const {assignments, display} = this.props;
       return (
         <div>
-          <NavBar handlePopup={this.handleClick} 
-                  visible={false} 
-                  passLogin={this.handleLogin.bind(this, 'login')} 
+          <NavBar passLogin={this.handleLogin.bind(this, 'login')} 
                   passPassword={this.handlePassword.bind(this, 'password')} 
                   login={this.state.login}
-                  password={this.state.password} />
+                  password={this.state.password}
+                  teacher={this.state.teacher} />
           <div className="body">
             <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-            <DisplayAssign assignments={assignments} display={display} login={this.state.login} password={this.state.password}/>
+            <DisplayAssign assignments={assignments} display={display} login={this.state.login} password={this.state.password} teacher={this.state.teacher}/>
+            <AddAss login={this.state.login} password={this.state.password} teacher={this.state.teacher} />
           </div> 
         </div>
       )

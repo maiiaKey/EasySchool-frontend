@@ -11,17 +11,14 @@ import questions from "../Components/questions.js";
 class Test extends React.Component { 
     constructor(props){
         super(props);
-        this.state = { tid: this.props.tid, questions: [], title: this.props.title, due_date: this.props.due_date, uid: this.props.uid,login: this.props.login, password: this.props.password};
+        this.state = { tid: this.props.tid, questions: [], title: this.props.title, due_date: this.props.due_date, uid: this.props.uid,login: this.props.login, password: this.props.password, teacher:this.props.teacher};
     }
 
     openQuestions = () => {
         const testQuestions = this.state.questions.filter((question) => {
-                // console.log(this.state.tid);
                 return question.tid == this.state.tid;
         });
-        // console.log("Test.testQuestions");
-        // console.log(testQuestions);
-        const display_quest = <QuestList login={this.state.login} password={this.state.password} questions={testQuestions} />;
+        const display_quest = <QuestList due_date={this.state.due_date} login={this.state.login} password={this.state.password} questions={testQuestions} teacher={this.state.teacher}/>;
         ReactDOM.render(display_quest, document.getElementById('root'));
     }
 

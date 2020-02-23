@@ -8,15 +8,26 @@ import DisplayQuest from '../Components/DisplayQuest';
 class QuestList extends React.Component {
     constructor(props){
       super(props);
-      this.state = {login: this.props.login, password: this.props.password, questions: this.props.questions};
+      this.state = {due_date: this.props.due_date, login: this.props.login, password: this.props.password, questions: this.props.questions};
+    }
+ 
+    onClick = () => {
+      console.log("CLICKED");
+  
+    }
+
+    removeHid = () => {
+      console.log("REMOVED");
     }
   
+    componentDidMount() {
+      this.removeHid();
+    }
+
     handleLogin = (logValue) => { this.setState({login: logValue});}
     handlePassword = (logPass) => { this.setState({password: logPass});}
 
     render(){
-        console.log("QuestList.questions");
-        console.log(this.state.questions);
         return (
           <div>
             <NavBar handlePopup={this.handleClick} 
@@ -24,10 +35,12 @@ class QuestList extends React.Component {
                     passLogin={this.handleLogin.bind(this, 'login')} 
                     passPassword={this.handlePassword.bind(this, 'password')} 
                     login={this.state.login}
-                    password={this.state.password} />
+                    password={this.state.password}
+                    teacher={this.props.teacher} />
             <div className="body">
               <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-              <DisplayQuest questions={this.state.questions} login={this.state.login} password={this.state.password} />
+              <DisplayQuest questions={this.state.questions} login={this.state.login} password={this.state.password} teacher={this.props.teacher} due_date={this.state.due_date}/>
+              <input type="submit" value="View Statistics" onClick={this.onClick} />
             </div> 
           </div>
         )

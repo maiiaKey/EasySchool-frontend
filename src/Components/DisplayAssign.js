@@ -3,7 +3,7 @@ import Test from './Test';
 import './DisplayAssign.css';
 
 
-const DisplayAssign = ({ assignments, display, login, password })  => {
+const DisplayAssign = ({ assignments, display, login, password, teacher })  => {
     if (display) {
         return (
             <div>
@@ -18,6 +18,7 @@ const DisplayAssign = ({ assignments, display, login, password })  => {
                             title={assignments[i].title}
                             login={login}
                             password={password}
+                            teacher={teacher}
                             />);
                         })
                     }

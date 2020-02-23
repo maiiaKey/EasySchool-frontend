@@ -9,25 +9,25 @@ class Login extends React.Component {
     super(props);
     this.state = {login: this.props.login, password: this.props.password};
     this.onSubmit = this.onSubmit.bind(this);
+    
   }
 
   
   changeLogin = (e) => {
     this.setState({login: e.target.value});
-    this.props.getLogin(e.target.value);
   }
 
   changePass = (e) => {
     this.setState({password: e.target.value});
-    this.props.getPassword(e.target.value);
   }
+
+  
 
   onSubmit(e){
     e.preventDefault();
     this.props.handleVisible();
-    console.log("Login")
-    console.log(this.state);
-    
+    this.props.getLogin(this.state.login);
+    this.props.getPassword(this.state.password);
   }
 
   render() {

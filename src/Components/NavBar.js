@@ -5,16 +5,30 @@ import assignments from "./assignments.js";
 import './Navbar.css';
 import AssignList from '../Containers/AssignList';
 import App from '../Containers/App.js';
-
+import users from "./users";
+import Display_Stud from '../Components/Display_Stud';
+import Profile from '../Containers/Profile';
 
 class NavBar extends React.Component {
     constructor(props){
         super(props);
-        this.state = {visible: false, assignments: [], status: false, login: this.props.login, password: this.props.password};
+        this.state = {users: users, teacher: this.props.teacher, visible: false, assignments: [], status: false, login: this.props.login, password: this.props.password};
       }
 
     componentDidMount() {
         this.setState({assignments: assignments}); //DATABASE
+        const students = this.state.users.filter((user) => { return user.teacher === false});
+        this.setState({users: students});
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.teacher !== prevProps.teacher) {
+            this.setState({teacher: this.props.teacher});
+        }
+        if (this.state.teacher === true) {
+            var st=document.getElementById('students');
+            st.removeAttribute('hidden');
+        }
     }
 
     handleVisible = () => {
@@ -36,35 +50,46 @@ class NavBar extends React.Component {
         this.props.passPassword(passvalue);
     }
 
+    openHomePage = () => {
+        const display_app = <App login={this.state.login} password={this.state.password} teacher={this.state.teacher}/>;
+        ReactDOM.render(display_app, document.getElementById('root'));
+    }
+
 
     openAssignList = () => {
-        if (this.state.login != "" && this.state.password != "") 
+        if (this.state.login !== "" && this.state.password !== "") 
             {
-                console.log("HERE");
-                console.log(this.state);
                 this.setState({status: true}, function () {
-                    console.log("Navbar "+this.state.status)
-                    const display_ass = <AssignList 
+                        const display_ass = <AssignList 
                         assignments={this.state.assignments} 
                         display={this.state.status} 
                         login={this.state.login}
-                        password={this.state.password}/>;
+                        password={this.state.password}
+                        teacher={this.state.teacher}/>;
                     ReactDOM.render(display_ass, document.getElementById('root'));
                 });
             }
         else {
-            const display_ass = <AssignList assignments={this.state.assignments} display={false} />;
+            const display_ass = <AssignList assignments={this.state.assignments} display={false} login={this.state.login}
+            password={this.state.password} teacher={this.state.teacher}/>;
             ReactDOM.render(display_ass, document.getElementById('root'));
         }
         
     }
 
-    openHomePage = () => {
-        console.log("NavBar.state:");
-        console.log(this.state);
-        const display_app = <App login={this.state.login} password={this.state.password}/>;
-        ReactDOM.render(display_app, document.getElementById('root'));
+    openStudents = () => {
+        console.log("Navbar");
+        console.log(this.state.users);
+        const display_stud = <Display_Stud login={this.state.login} password={this.state.password} teacher={this.state.teacher} students={this.state.users}/>;
+        ReactDOM.render(display_stud, document.getElementById('root'));
     }
+
+    openProfile = () => {
+        const display_prof = <Profile login={this.state.login} password={this.state.password} teacher={this.state.teacher}/>;
+        ReactDOM.render(display_prof, document.getElementById('root'));
+    }
+
+    
 
     render() {
 
@@ -84,6 +109,12 @@ class NavBar extends React.Component {
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#" onClick={this.openAssignList}>Assignments</a>
+                        </li>
+                        <li className="nav-item">
+                            <a hidden id="students" className="nav-link" href="#" onClick={this.openStudents}>Students</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#" onClick={this.openProfile}>Profile</a>
                         </li>
                         </ul>
                     </div>
