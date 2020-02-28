@@ -10,11 +10,19 @@ class AssignList extends React.Component {
     this.state = {login: this.props.login, password: this.props.password, teacher: this.props.teacher};
   }
 
+  // componentDidMount(){
+  //   console.log("AssigList.login(mount) "+ this.state.login);
+  //   console.log("AssigList.pass(mount) "+ this.state.password);
+  //   if (this.state.login==="maiia" && this.state.password==="key")
+  //           this.setState({teacher: true});
+  // }
+
   componentDidUpdate(prevProps) {
     if (this.props.teacher !== prevProps.teacher) {
         this.setState({teacher: this.props.teacher});
     }
 }
+
 
   handleLogin = (logValue) => {
     this.setState({login: logValue});

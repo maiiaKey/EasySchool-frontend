@@ -2,10 +2,6 @@ import React from 'react';
 import './Question.css';
 
 const Question = ({ qid, tid, type, text, correct_answer, incorrect_answer_1, incorrect_answer_2, incorrect_answer_3, uid, login, password, due_date }) => {
-    console.log("TODAY: " + Date.now());
-    console.log("Date due: "+ due_date);
-    if (Date.parse(due_date)>Date.now()) {
-    console.log("HERE");
     return (
         <div id="body">
             <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
@@ -33,14 +29,7 @@ const Question = ({ qid, tid, type, text, correct_answer, incorrect_answer_1, in
             </div>
         </div>
     );
-    }
-    else{
-        return(
-            <div>
-                <h1>Answers</h1>
-            </div>
-        );
-    }
 }
+
 
 export default Question;

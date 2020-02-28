@@ -9,6 +9,22 @@ const users = [
     },
     {
         uid: 1001,
+        username: 'patricia',
+        password: 'secret',
+        first_name: 'Patricia',
+        last_name: 'Cat',
+        teacher: false,
+    },
+    {
+        uid: 1002,
+        username: 'marry',
+        password: 'secret',
+        first_name: 'Marry',
+        last_name: 'Lamb',
+        teacher: false,
+    },
+    {
+        uid: 1003,
         username: 'maiia',
         password: 'key',
         first_name: 'Maiia',
@@ -16,7 +32,7 @@ const users = [
         teacher: true,
     },
     {
-        uid: 1002,
+        uid: 1004,
         username: 'neuhold',
         password: 'erik',
         first_name: 'Erik',

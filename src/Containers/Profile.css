@@ -1,0 +1,16 @@
+.profile {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 30px;
+    background: linear-gradient(to right, rgb(204, 170, 238), rgb(255, 204, 238));
+    border-style: solid;
+    border-color:  #270132;
+    color: #270132;
+    border-radius: 30px;
+    display:flex;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}

@@ -16,12 +16,12 @@ class NavBar extends React.Component {
       }
 
     componentDidMount() {
-        this.setState({assignments: assignments}); //DATABASE
+        this.setState({assignments: assignments});
         const students = this.state.users.filter((user) => { return user.teacher === false});
         this.setState({users: students});
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (this.props.teacher !== prevProps.teacher) {
             this.setState({teacher: this.props.teacher});
         }
