@@ -8,7 +8,6 @@ class Profile extends React.Component {
     constructor(props){
       super(props);
       this.state = {login: this.props.login, password: this.props.password, teacher: this.props.teacher, user: users.filter((user) => {return user.username==this.props.login})};
-      console.log("Profile: "+this.state.user[0].uid);
       
     }
 
