@@ -127,20 +127,20 @@ class Profile extends React.Component {
                   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
           <div className="profile">
             <div className="box">
-                <h1>Your Profile</h1>
-                <span>{user[0].first_name+" "+user[0].last_name}</span>
-                <input id="changeName" className="pfBtn" type="submit" value="Edit" onClick={this.showTextField}></input>
+                <h1 className="pfTitle">Your Profile</h1>
+                <span classNmae="pfSpan">{user[0].first_name+" "+user[0].last_name}</span><br/>
+                <input id="changeName" className="pfBtn" type="submit" value="Edit Name" onClick={this.showTextField}></input>
                 <input hidden id="changeFN" type="text" placeholder='Type your new first name' /><br  id="br1" hidden />
                 <input hidden id="changeLN" type="text" placeholder='Type your new last name' />
-                <input hidden id="submit1" className="pfBtn" type="submit" value="Change" onClick={this.changeValue}></input><br />
-                <span>{"Username: "+user[0].username}</span>
-                <input id="changeUsername" className="pfBtn" type="submit" value="Edit" onClick={this.showTextField}></input>
+                <br/><input hidden id="submit1" className="pfBtn" type="submit" value="Change" onClick={this.changeValue}></input><br />
+                <span classNmae="pfSpan">{"Username: "+user[0].username}</span><br/>
+                <input id="changeUsername" className="pfBtn" type="submit" value="Edit Username" onClick={this.showTextField}></input>
                 <input id="changeUN" hidden type="text" placeholder='Type your new username' />
                 <input hidden id="submit2" className="pfBtn" type="submit" value="Change" onClick={this.changeValue}></input><br/>
                 <input id="changePass" className="pfBtn" type="submit" value="Edit Password" onClick={this.showTextField}></input>
                 <input id="currentPass" hidden type="text" placeholder='Type your current password' /><br/>
                 <input id="newPass" hidden type="text" placeholder='Type your new password' />
-                <input hidden id="submit3" className="pfBtn" type="submit" value="Change" onClick={this.changeValue}></input>
+                <br/><input hidden id="submit3" className="pfBtn" type="submit" value="Change" onClick={this.changeValue}></input>
                 </div>
           </div>
         </div>
