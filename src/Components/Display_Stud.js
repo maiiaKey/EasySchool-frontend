@@ -7,9 +7,8 @@ import NavBar from '../Components/NavBar';
 class Display_Stud extends React.Component {
     constructor(props){
         super(props);
-        this.state = {login: this.props.login, password:this.props.password, teacher: this.props.teacher, students: this.props.students};
-        console.log("HERE");
-        console.log(this.state);
+        this.state = {login: this.props.login, password:this.props.password, teacher: this.props.teacher, students: this.props.students, username: ''};
+        
     }
 
     handleLogin = (logValue) => {
@@ -18,6 +17,15 @@ class Display_Stud extends React.Component {
   
     handlePassword = (logPass) => {
         this.setState({password: logPass});
+    }
+
+    addStudent = (e) => {
+        //ADDING A STUDENT TO A DATABASE
+        //acces his username by this.state.username
+    }
+
+    handleUsername = (e) => {
+        this.setState({username: e.target.value});
     }
 
 
@@ -45,9 +53,10 @@ class Display_Stud extends React.Component {
                             );
                         })
                     }
-                    <h3>Add Student</h3>
-                    <input type="text" placeholder="Type the username of the new student"></input>
-                    <input type="submit" value="Add" />
+                    <h4>Add a new student</h4>
+                    <input type="text" placeholder="Type the username of the new student" value={this.state.username} onChange={this.handleUsername}></input>
+                    <p>The student's password is '1' by default. This can later be changed by the student in profile settings</p>
+                    <input type="submit" value="Add" onClick={this.addStudent}/>
                 </div>
             </div>
         );
