@@ -127,12 +127,12 @@ class Profile extends React.Component {
           <div className="profile">
             <div className="box">
                 <h1 className="pfTitle">Your Profile</h1>
-                <span classNmae="pfSpan">{user[0].first_name+" "+user[0].last_name}</span><br/>
+                <span className="pfSpan">{user[0].first_name+" "+user[0].last_name}</span><br/>
                 <input id="changeName" className="pfBtn" type="submit" value="Edit Name" onClick={this.showTextField}></input>
                 <input hidden id="changeFN" type="text" placeholder='Type your new first name' /><br  id="br1" hidden />
                 <input hidden id="changeLN" type="text" placeholder='Type your new last name' />
                 <br/><input hidden id="submit1" className="pfBtn" type="submit" value="Change" onClick={this.changeValue}></input><br />
-                <span classNmae="pfSpan">{"Username: "+user[0].username}</span><br/>
+                <span className="pfSpan">{"Username: "+user[0].username}</span><br/>
                 <input id="changeUsername" className="pfBtn" type="submit" value="Edit Username" onClick={this.showTextField}></input>
                 <input id="changeUN" hidden type="text" placeholder='Type your new username' />
                 <input hidden id="submit2" className="pfBtn" type="submit" value="Change" onClick={this.changeValue}></input><br/>
@@ -157,7 +157,7 @@ class Profile extends React.Component {
                         teacher={this.state.teacher}
                 />
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-                <h1>Please, log in.</h1>
+                <h2 className="pfMes">Please, log in.</h2>
         </div>
         );
     }

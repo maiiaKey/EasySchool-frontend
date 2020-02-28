@@ -50,9 +50,10 @@ class AddAss extends React.Component {
         return(
             <div hidden id="buttonsBody">
                 <div>
-                    <h1>Add Add Assignment form here</h1>
+                    <h1 className="addAssTitle">Add New Assignment</h1>
                     <label htmlFor="mul_que">Choose the number of multiple choice questions: </label>
                     <input type="number" id="mul_que" name="mul_que" min="0" max="20" onChange={this.changeQuan}/><br />
+                    <input type='date' id="due_date" />
                     <input type="submit" value="Add Assignment" onClick={this.openAddQuest.bind(this)}/>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../Components/NavBar';
 import './App.css';
+import users from '../Components/users.js';
 
 
 class App extends React.Component {
@@ -18,13 +19,23 @@ class App extends React.Component {
     }
     
     componentDidUpdate() {
-      var flag=false;
-      if (this.state.login==="maiia" && this.state.password==="key")
-        flag=true;
-      if (this.state.teacher !== flag) {
-        this.setState({teacher: flag});
-      }
-      }
+      if (this.state.login !== "" && this.state.password !== ""){
+        const user = users.filter((user) => {
+          return (user.username===this.state.login && user.password===this.state.password)});
+        if (user.length === 0)
+        {
+          this.setState({login: '', password:""});
+          alert("Sorry, wrong username of password");
+        }
+        else { 
+          const flag = user[0].teacher;
+          if (this.state.teacher !== flag)
+            this.setState({ teacher: flag });
+        }
+          
+    }
+    }
+      
 
     
 
@@ -55,9 +66,9 @@ class App extends React.Component {
               <li>view individual answers of each student</li>
             </ul>
             <div className="homepage-footer">
-            <h3>Contact</h3>
-            <h5>If you have any questions of issues contact the developer at</h5>
-            <h5>mayak29052003@gmail.com</h5>
+            <h3 className="footer-title">Contact</h3>
+            <h5 className="footer-text">If you have any questions or issues you may contact the developer at:</h5>
+            <h5 className="footer-text">mayak29052003@gmail.com</h5>
             </div>
           </div>
         </div>

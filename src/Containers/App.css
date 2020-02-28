@@ -2,20 +2,47 @@
   display: flex;
   flex-direction: column;
   font-family: 'Open Sans';
+  color: #270132;
+
 }
 
 .homepage-title {
-  margin-top: 30px;
+  margin-top: 11%;
   text-align: center;
+
 }
 
 .homepage-text {
   margin-top: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.homepage-list {}
+.homepage-list {
+  margin-top: 10px;
+  list-style: circle;
+  font-size: 1rem;
+  text-align: start;
+  padding-left: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .homepage-footer {
+  margin-top: 18%;
+  align-self: center;
+  margin-left: 10px;
+  text-align: center;
 
+}
+
+.footer-title {
+  font-size: 1.5rem;
+}
+
+.footer-text {
+  font-size: 1rem;
 }
 

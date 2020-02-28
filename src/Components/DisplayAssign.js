@@ -28,7 +28,7 @@ const DisplayAssign = ({ assignments, display, login, password, teacher })  => {
     }
     else return(
         <div>
-            <p>Please, log in.</p>
+            <h2 className="daMes">Please, log in.</h2>
         </div>
     );
 }
