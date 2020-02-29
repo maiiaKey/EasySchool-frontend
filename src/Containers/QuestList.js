@@ -1,9 +1,7 @@
 import React from 'react';
 import NavBar from '../Components/NavBar';
-
-
 import DisplayQuest from '../Components/DisplayQuest';
-// import './QuestList.css';
+
 
 class QuestList extends React.Component {
     constructor(props){
@@ -11,7 +9,9 @@ class QuestList extends React.Component {
       this.state = {due_date: this.props.due_date, 
                     login: this.props.login, 
                     password: this.props.password, 
-                    questions: this.props.questions};
+                    questions: this.props.questions,
+                    tid: this.props.tid
+                  };
     }
 
     handleLogin = (logValue) => { this.setState({login: logValue});}
@@ -28,7 +28,7 @@ class QuestList extends React.Component {
                     teacher={this.props.teacher} />
             <div className="body">
               <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-              <DisplayQuest questions={this.state.questions} login={this.state.login} password={this.state.password} teacher={this.props.teacher} due_date={this.state.due_date}/>
+              <DisplayQuest tid={this.state.tid} questions={this.state.questions} login={this.state.login} password={this.state.password} teacher={this.props.teacher} due_date={this.state.due_date}/>
             </div> 
           </div>
         )

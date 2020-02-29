@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "../Components/CorrectAnswersList.css";
 
 class CorrectAnswersList extends React.Component {
     constructor(props){

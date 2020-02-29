@@ -3,6 +3,8 @@ import './Test.css';
 import ReactDOM from 'react-dom';
 import QuestList from '../Containers/QuestList';
 import questions from "../Components/questions.js";
+import axios from 'axios';
+import { apiBaseUrl } from '../Components/config.js';
 
 
 
@@ -16,27 +18,31 @@ class Test extends React.Component {
 
     openQuestions = () => {
         const testQuestions = this.state.questions.filter((question) => {
-                return question.tid == this.state.tid;
+                return question.assignment_id == this.state.tid;
         });
-        const display_quest = <QuestList due_date={this.state.due_date} login={this.state.login} password={this.state.password} questions={testQuestions} teacher={this.state.teacher}/>;
+        console.log(this.state.questions);
+        const display_quest = <QuestList tid={this.state.tid} due_date={this.state.due_date} login={this.state.login} password={this.state.password} questions={testQuestions} teacher={this.state.teacher}/>;
         ReactDOM.render(display_quest, document.getElementById('root'));
     }
 
     componentDidMount() {
-        this.setState({questions: questions}); //DATABASE
+        var self=this;
+        axios.get(apiBaseUrl+'/question')
+        .then((response)=> {
+            self.setState({questions: response.data.rows});
+        });
     }
 
     render(){
     
     return (
-        <div id="body">
-            <div className="test">
-                <div className="container">
-                    <a className="clickable" href="#" onClick={this.openQuestions.bind(this)}>
-                    <span className="test title">{this.state.title}</span>
-                    <div className="infoDiv">
-                        <span className="test info date">Due: {this.state.due_date}</span><br />
-                        <span className="test info">From: {this.state.uid}</span><br />
+        <div id="test_body">
+            <div className="test-test">
+                <div className="test-container">
+                    <a className="test-clickable" href="#" onClick={this.openQuestions.bind(this)}>
+                    <span className="test-title">{this.state.title}</span>
+                    <div className="test-infoDiv">
+                        <span className="test-info-date">Due: {this.state.due_date}</span><br />
                     </div>
                     </a>
                 </div>

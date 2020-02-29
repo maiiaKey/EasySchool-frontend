@@ -3,6 +3,10 @@ import Question from "../Components/Question";
 import ReactDOM from 'react-dom';
 import CorrectAnswersList from "../Components/CorrectAnswersList";
 import ViewStat from "../Containers/ViewStat.js";
+import "../Components/CorrectAnswersList.css";
+import axios from 'axios';
+import { apiBaseUrl } from '../Components/config.js';
+
 
 
 class DisplayQuest extends React.Component  {
@@ -12,11 +16,43 @@ class DisplayQuest extends React.Component  {
                         login: this.props.login, 
                         password: this.props.password, 
                         due_date: this.props.due_date, 
-                        teacher: this.props.teacher};
+                        teacher: this.props.teacher,
+                        tid: this.props.tid
+                    };
         }
 
+    // calcPieChart = async() => {
+    //     let response = await axios.get(apiBaseUrl+'/answer');
+    //     var testAnswers=response.data.rows.filter((answer) => {return answer.assignment_id===this.state.tid});
+    //     //console.log(testAnswers);
+        
+    //     var idArray = new Array(1000).fill(0);
+    //     testAnswers.map((answer)=>{
+    //         idArray[answer.user_id]++;
+    //     });
+    //     var count=0;
+    //     idArray.map((element)=>{ 
+    //         if (element!=0)
+    //             count++;
+    //     })
+    //     return count;
+    // }
+
+    // getUsers = async () => {
+    //     let response = await axios.get(apiBaseUrl+'/user');
+    //     return response.data.rows;
+    // }
+
     onClick = () => {
-        const display_stat = <ViewStat login={this.state.login} password={this.state.password} teacher={this.state.teacher} tid={this.state.questions[0].tid}/>;
+
+        // var completed=this.calcPieChart();
+
+        // var users=this.getUsers();
+        // //var students = users.filter((user)=>{return user.teacher===false});;            
+        // console.log(completed);
+        // //console.log(students.length);
+
+        const display_stat = <ViewStat login={this.state.login} password={this.state.password} teacher={this.state.teacher} tid={this.state.questions[0].id}/>;
         ReactDOM.render(display_stat, document.getElementById('root'));
     }
 
@@ -72,7 +108,7 @@ class DisplayQuest extends React.Component  {
                                         questions={this.state.questions}
                                         
                     />
-                    <input type="submit" value="View Statistics" onClick={this.onClick} />
+                    <input className="testBtn" type="submit" value="View Statistics" onClick={this.onClick} />
                 </div>
             )
         }

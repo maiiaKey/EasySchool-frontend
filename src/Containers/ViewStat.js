@@ -5,7 +5,7 @@ import Chart from "react-google-charts";
 import ViewIndiv from '../Containers/ViewIndiv.js';
 
 const pieOptions = {
-    title: "",
+    title: "Assignment Performance",
     pieHole: 0,
     slices: [
       {
@@ -38,7 +38,7 @@ const pieOptions = {
       width: "100%",
       height: "80%"
     },
-    fontName: "Roboto"
+    fontName: "Open Sans"
   };
 
 class ViewStat extends React.Component {
@@ -73,9 +73,10 @@ class ViewStat extends React.Component {
               <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
               
               <div id="piechart">
+                
                 <Chart
                     chartType="PieChart"
-                    data={[["Age", "Weight"], ["a", 12], ["b", 5.5]]}
+                    data={[["Completed", "Uncompleted"], ["completed", 12], ["uncompleted", 5.5]]}
                     options={pieOptions}
                     graph_id="PieChart"
                     width={"100%"}

@@ -32,7 +32,7 @@ class App extends React.Component {
     
     componentDidUpdate() {
       //AUTHENTICATION
- 
+      
       if (this.state.login !== ""){
         const user = this.state.users.filter((user) => {
           return (user.username===this.state.login)});
@@ -48,8 +48,11 @@ class App extends React.Component {
           if (this.state.teacher !== flag)
             this.setState({ teacher: flag });
         }
-          
-    }
+      }
+
+
+      // if (this.state.login!=="maiia")
+      //   this.setState({login: 'maiia', password: 'key', teacher:true});
     }
 
     render() {

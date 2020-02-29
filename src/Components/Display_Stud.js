@@ -26,15 +26,30 @@ class Display_Stud extends React.Component {
         //acces his username by this.state.username
         var user = {
             'username': this.state.username,
-            'teacher': false
+            'teacher': false,
+            'first_name': "",
+            'last_name': "",
         }
         axios.post(apiBaseUrl+'/user',user)
         .then((response)=> {console.log(response)});
 
     }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.students != this.props.students) {
+            this.setState({students: this.props.students});
+        }
+
+
+    }
+
     handleUsername = (e) => {
         this.setState({username: e.target.value});
+    }
+
+    deleteStudent(e){
+        axios.delete(apiBaseUrl+'/user', e.target.name)
+        .then((res)=> {console.log(res)});
     }
 
 
@@ -57,7 +72,7 @@ class Display_Stud extends React.Component {
                                     <span className="stFN">{student.first_name+" "}</span>
                                     <span className="stLN">{student.last_name}</span><br/>
                                     <span className="stUN">{'('+student.username+')'}</span>
-                                    <input className="stBtn" type="submit" value="Delete" />
+                                    <input className="stBtn" name={student.id} type="submit" value="Delete" />
                                 </div>
                             );
                         })

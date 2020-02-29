@@ -1,35 +1,40 @@
 
-.test {
+.test-test {
     color: #270132;
     font-size: 1rem;
     margin-left: 0;
 }
-.container {
+.test-container {
     padding-left: 0;
     border-style: solid;
     border-radius: 15px;
+    color: #270132;
     border-color: #270132;
     border-width: 0.07rem;
     margin-top: 1rem;
     background: linear-gradient(to right, rgb(204, 170, 238), rgb(255, 204, 238));
 }
 
-.container:hover {
+.test-container:hover {
     transform: scale(1.01);
+    color: #270132;
 }
 
-.clickable {
+.test-clickable {
+    color: #270132;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    padding-left: 5px;
+    padding-right: 5px;    
 }
 
-.clickable:hover {
+.test-clickable:hover {
     text-decoration: none;
+    color: #270132;
 }
 
-.title {
+.test-title {
     font-size: 1.3rem;
 } 
 

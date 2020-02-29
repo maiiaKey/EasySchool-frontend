@@ -87,7 +87,7 @@ class AddAss extends React.Component {
 
                 <div>
                     <h1 className="addAssTitle">Add New Assignment</h1>
-                    <input id='assTitle' type="text" placeholder="Type here the title of the assignment" onChange={this.changeTitle}/><br/>
+                    <input id='assTitle' type="text" placeholder="Type here the title of the assignment" onChange={this.changeTitle} required/><br/>
                     <label className="assLabel" htmlFor="mul_que">Choose the number of multiple choice questions: </label>
                     <input className="assNum" type="number" id="mul_que" name="mul_que" min="0" max="20" onChange={this.changeQuan}/><br />
                     <label className="assLabel" htmlFor="due_date">Choose the due date: </label>

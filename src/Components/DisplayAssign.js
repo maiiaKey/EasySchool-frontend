@@ -12,8 +12,8 @@ const DisplayAssign = ({ assignments, display, login, password, teacher })  => {
                         assignments.map((user, i) => {
                             return (<Test 
                             key={i}
-                            tid={assignments[i].tid} 
-                            uid={assignments[i].uid} 
+                            tid={assignments[i].id} 
+                            uid={assignments[i].user_id} 
                             due_date={assignments[i].due_date} 
                             title={assignments[i].title}
                             login={login}
