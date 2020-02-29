@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NavBar from '../Components/NavBar';
-
+import axios from 'axios';
+import { apiBaseUrl } from '../Components/config.js';
 
 class AssignList extends React.Component {
   constructor(props){
@@ -20,12 +21,23 @@ class AssignList extends React.Component {
 
   submitQuestion(){
     const {q,ca,i1,i2,i3} =this.state;
-    //ADDING ONE QUESTIONS TO DATABSAE
-    //access info about it through q, ca], i1, i2, i3
-    //q = text of the question
-    //ca = correct_answer
-    //i1, i2, i3 = incorrect_answer_1/2/3
-    
+    //ADDING ONE QUESTIONS TO DATABASE
+    var quest = {
+      "assignment_id": this.props.tid,
+      "user_id": this.props.uid, 
+      "type": 0,
+      "text": q,
+      "correct_answer": ca,
+      "incorrect_answer_1": i1,
+      "incorrect_answer_2": i2,
+      "incorrect_answer_3": i3,
+
+    }
+    //ADDING NEW QUESTION TO DATABASE
+    axios.post(apiBaseUrl+'/question', quest)
+    .then((response) => {
+        console.log(response);
+    });
     
   }
 

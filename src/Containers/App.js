@@ -1,13 +1,14 @@
 import React from 'react';
 import NavBar from '../Components/NavBar';
 import './App.css';
-import users from '../Components/users.js';
+import axios from 'axios';
+import { apiBaseUrl } from '../Components/config.js';
 
 
 class App extends React.Component {
     constructor(props){
       super(props);
-      this.state = {login: this.props.login, password: this.props.password, teacher: this.props.teacher};
+      this.state = {users: [], login: this.props.login, password: this.props.password, teacher: this.props.teacher};
     }
 
     handleLogin = (logValue) => {
@@ -17,17 +18,32 @@ class App extends React.Component {
     handlePassword = (logPass) => {
       this.setState({password: logPass});
     }
+
+    getUsers = async () => {
+      let response = await axios.get(apiBaseUrl+'/user');
+      this.setState({users: response.data.rows});
+      console.log(this.state.users);
+    }
+
+    componentDidMount() {
+      this.getUsers();
+
+    }
     
     componentDidUpdate() {
-      if (this.state.login !== "" && this.state.password !== ""){
-        const user = users.filter((user) => {
-          return (user.username===this.state.login && user.password===this.state.password)});
+      //AUTHENTICATION
+ 
+      if (this.state.login !== ""){
+        const user = this.state.users.filter((user) => {
+          return (user.username===this.state.login)});
         if (user.length === 0)
         {
+          //non existent user
           this.setState({login: '', password:""});
           alert("Sorry, wrong username of password");
         }
         else { 
+          //updating teacher prop
           const flag = user[0].teacher;
           if (this.state.teacher !== flag)
             this.setState({ teacher: flag });

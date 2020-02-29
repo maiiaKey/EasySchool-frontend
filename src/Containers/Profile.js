@@ -1,22 +1,19 @@
 import React from 'react';
 import NavBar from '../Components/NavBar';
-import users from "../Components/users.js";
 import '../Containers/Profile.css';
+import axios from 'axios';
+import { apiBaseUrl } from '../Components/config.js';
 
 
 class Profile extends React.Component {
-    constructor(props){
+    constructor(props) {
       super(props);
-      this.state = {login: this.props.login, password: this.props.password, teacher: this.props.teacher, user: users.filter((user) => {return user.username==this.props.login})};
-      
+      this.state = {login: this.props.login, password: this.props.password, teacher: this.props.teacher, 
+        user: this.props.users.filter((user) => {return (user.username === this.props.login)})};
+        console.log(this.props.users);
     }
 
-    // componentDidMount(){
-    //   console.log(users);
-    //     const user = ;
-    //     this.setState({user: user});
-    // }
-    
+
 
     handleLogin = (logValue) => {
       this.setState({login: logValue});
@@ -110,9 +107,9 @@ class Profile extends React.Component {
 
     render() {
     if (this.state.login !== '' && this.state.password !== "")
-    
     {
       const {user} = this.state;
+      console.log(user);
       return (
         <div>
           <NavBar 

@@ -1,6 +1,8 @@
 import React from "react";
 import NavBar from '../Components/NavBar';
 import './Display_Stud.css';
+import axios from 'axios';
+import { apiBaseUrl } from '../Components/config.js';
 
 
 
@@ -22,6 +24,13 @@ class Display_Stud extends React.Component {
     addStudent = (e) => {
         //ADDING A STUDENT TO A DATABASE
         //acces his username by this.state.username
+        var user = {
+            'username': this.state.username,
+            'teacher': false
+        }
+        axios.post(apiBaseUrl+'/user',user)
+        .then((response)=> {console.log(response)});
+
     }
 
     handleUsername = (e) => {

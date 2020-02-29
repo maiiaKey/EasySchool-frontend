@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './Login';
-//import assignments from "./assignments.js";
 import './Navbar.css';
 import AssignList from '../Containers/AssignList';
 import App from '../Containers/App.js';
-import users from "./users";
+//import users from "./users";
 import Display_Stud from '../Components/Display_Stud';
 import Profile from '../Containers/Profile';
 import axios from 'axios';
@@ -14,17 +13,26 @@ import { apiBaseUrl } from './config.js';
 class NavBar extends React.Component {
     constructor(props){
         super(props);
-        this.state = {users: users, teacher: this.props.teacher, visible: false, assignments: [], status: false, login: this.props.login, password: this.props.password};
+        this.state = {students: [], users: [], teacher: this.props.teacher, visible: false, assignments: [], status: false, login: this.props.login, password: this.props.password};
       }
 
     componentDidMount() {
+        //getting assignments
         var self = this;
-        const assignments = axios.get(apiBaseUrl+'/assignment')
+        axios.get(apiBaseUrl+'/assignment')
         .then(function (response) {self.setState({assignments: response.data.rows});});
         
+        //getting users
+        axios.get(apiBaseUrl+'/user')
+        .then(function (response) {
+            self.setState({users: response.data.rows});
+            const students = self.state.users.filter((user) => { return user.teacher === false});
+            self.setState({students: students});
+        });    
         
-        const students = this.state.users.filter((user) => { return user.teacher === false});
-        this.setState({users: students});
+
+
+        
     }
 
     componentDidUpdate(prevProps) {
@@ -86,12 +94,12 @@ class NavBar extends React.Component {
     openStudents = () => {
         console.log("Navbar");
         console.log(this.state.users);
-        const display_stud = <Display_Stud login={this.state.login} password={this.state.password} teacher={this.state.teacher} students={this.state.users}/>;
+        const display_stud = <Display_Stud login={this.state.login} password={this.state.password} teacher={this.state.teacher} students={this.state.students}/>;
         ReactDOM.render(display_stud, document.getElementById('root'));
     }
 
     openProfile = () => {
-        const display_prof = <Profile login={this.state.login} password={this.state.password} teacher={this.state.teacher}/>;
+        const display_prof = <Profile login={this.state.login} password={this.state.password} teacher={this.state.teacher} users={this.state.users}/>;
         ReactDOM.render(display_prof, document.getElementById('root'));
     }
 

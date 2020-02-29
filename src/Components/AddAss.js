@@ -2,11 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AddQuest from "../Containers/AddQuest.js"
 import '../Components/AddAss.css';
+import axios from 'axios';
+import { apiBaseUrl } from '../Components/config.js';
+
 
 class AddAss extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {login:this.props.login, teacher: this.props.teacher, password: this.props.password, tid: 0, title: "", due_date: '', mul_que: 0};     
+        this.state = {login: this.props.login, 
+                      teacher: this.props.teacher, 
+                      password: this.props.password, 
+                      tid: 0, 
+                      title: "", 
+                      due_date:"", 
+                      mul_que: 0, 
+                      uid: 0};     
     }
 
     componentDidMount() {
@@ -14,6 +24,10 @@ class AddAss extends React.Component {
             var body=document.getElementById("buttonsBody");
             body.removeAttribute("hidden");
         }
+        const users=[];
+        //get users
+        //setStae uid
+
     }
 
     componentDidUpdate(prevProps){
@@ -28,21 +42,26 @@ class AddAss extends React.Component {
         
     }
 
-    openAddQuest(){
+    openAddQuest = async () => {
+        //CREATING A JSON OBJECT WITH INFO ABOUT NEW ASSIGNMENT
+        // Add user id
+        var test = {
+            //"teacher_id":this.state.username,
+            "title": this.state.title,
+            "due_date": new Date(this.state.due_date).toJSON(),
+            "multipe_choice": this.state.mul_que,
+
+        }
+        var self= this;
         //ADDING NEW ASSIGNMENT TO DATABASE
-        //access info about the assignment via
-        //this.state.title, this.state.due_date, this.state.mul_que (number of questions)
-        //determine teacher_id via this.state.login
-        //return test_id!!!   this.state.tid=test_id
-        console.log(this.state.title);
-        console.log(this.state.due_date);
-        console.log(this.state.mul_que);
+        let response = await axios.post(apiBaseUrl+'/assignment', test);
+        this.setState({tid: response.data.id});
+
         var mul_quest=[];
         for (var i=0; i<this.state.mul_que; i++){
             mul_quest.push(i+1);
         }
-
-        const add_quest = <AddQuest login={this.state.login} password={this.state.password} teacher={this.state.teacher} mul={this.state.mul_que} mul_quest={mul_quest} tid={this.state.tid}/>;
+        const add_quest = <AddQuest login={this.state.login} password={this.state.password} teacher={this.state.teacher} mul={this.state.mul_que} mul_quest={mul_quest} tid={this.state.tid} uid={this.state.uid}/>;
         ReactDOM.render(add_quest, document.getElementById('root'));
     }
 
