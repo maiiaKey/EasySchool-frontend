@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './Login';
-import assignments from "./assignments.js";
+//import assignments from "./assignments.js";
 import './Navbar.css';
 import AssignList from '../Containers/AssignList';
 import App from '../Containers/App.js';
 import users from "./users";
 import Display_Stud from '../Components/Display_Stud';
 import Profile from '../Containers/Profile';
+import axios from 'axios';
+import { apiBaseUrl } from './config.js';
 
 class NavBar extends React.Component {
     constructor(props){
@@ -16,7 +18,11 @@ class NavBar extends React.Component {
       }
 
     componentDidMount() {
-        this.setState({assignments: assignments});
+        var self = this;
+        const assignments = axios.get(apiBaseUrl+'/assignment')
+        .then(function (response) {self.setState({assignments: response.data.rows});});
+        
+        
         const students = this.state.users.filter((user) => { return user.teacher === false});
         this.setState({users: students});
     }

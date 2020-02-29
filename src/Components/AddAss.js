@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AddQuest from "../Containers/AddQuest.js"
+import '../Components/AddAss.css';
 
 class AddAss extends React.Component {
     constructor(props) {
@@ -63,13 +64,16 @@ class AddAss extends React.Component {
     render(){
         return(
             <div hidden id="buttonsBody">
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
+
                 <div>
                     <h1 className="addAssTitle">Add New Assignment</h1>
-                    <input id='assTitle' type="text" placeholder="Type here the title of the assignment" onChange={this.changeTitle}/>
-                    <label htmlFor="mul_que">Choose the number of multiple choice questions: </label>
-                    <input type="number" id="mul_que" name="mul_que" min="0" max="20" onChange={this.changeQuan}/><br />
-                    <label htmlFor="due_date">Choose the due date: </label><input type='date' id="due_date" onChange={this.changeDate}/><br/>
-                    <input type="submit" value="Add Assignment" onClick={this.openAddQuest.bind(this)}/>
+                    <input id='assTitle' type="text" placeholder="Type here the title of the assignment" onChange={this.changeTitle}/><br/>
+                    <label className="assLabel" htmlFor="mul_que">Choose the number of multiple choice questions: </label>
+                    <input className="assNum" type="number" id="mul_que" name="mul_que" min="0" max="20" onChange={this.changeQuan}/><br />
+                    <label className="assLabel" htmlFor="due_date">Choose the due date: </label>
+                    <input className="assDate" type='date' id="due_date" onChange={this.changeDate}/><br/>
+                    <input className="assBtn" type="submit" value="Add Assignment" onClick={this.openAddQuest.bind(this)}/>
                 </div>
             </div>
         )

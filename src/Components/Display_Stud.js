@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from '../Components/NavBar';
-// import './DisplayAssign.css';
+import './Display_Stud.css';
 
 
 
@@ -40,23 +40,25 @@ class Display_Stud extends React.Component {
                   password={this.state.password}
                   teacher={this.state.teacher}
                   />
-                <div className="body">
+                <div className="stBody">
                     {
                         this.state.students.map((student, i) => {
                             return (
-                                <div key={i}>
-                                    <p>{student.first_name}</p>
-                                    <p>{student.last_name}</p>
-                                    <p>{student.username}</p>
-                                    <input type="submit" value="Delete" />
+                                <div key={i} className="stud">
+                                    <span className="stFN">{student.first_name+" "}</span>
+                                    <span className="stLN">{student.last_name}</span><br/>
+                                    <span className="stUN">{'('+student.username+')'}</span>
+                                    <input className="stBtn" type="submit" value="Delete" />
                                 </div>
                             );
                         })
                     }
-                    <h4>Add a new student</h4>
-                    <input type="text" placeholder="Type the username of the new student" value={this.state.username} onChange={this.handleUsername}></input>
-                    <p>The student's password is '1' by default. This can later be changed by the student in profile settings</p>
-                    <input type="submit" value="Add" onClick={this.addStudent}/>
+                    <div className="addSt">
+                        <h4 className="addstTitle">Add a new student</h4>
+                        <input className="addstInput" type="text" placeholder="Type the username of the new student" value={this.state.username} onChange={this.handleUsername}></input>
+                        <p className="addstP">The student's password is '1' by default. This can later be changed by the student in profile settings</p>
+                        <input className="addstBtn" type="submit" value="Add" onClick={this.addStudent}/>
+                    </div>
                 </div>
             </div>
         );

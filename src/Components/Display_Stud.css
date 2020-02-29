@@ -1,0 +1,67 @@
+.stBody {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.stud {
+    margin-top: 30px;
+    margin-left:20%;
+    margin-right:20%;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 0.9px;
+    background: linear-gradient(to right, rgb(204, 170, 238), rgb(255, 204, 238)) !important;
+    text-align: center;
+}
+
+.stBtn {
+    
+    margin-left: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 0.9px;
+    background: linear-gradient(to left, rgb(204, 170, 238), rgb(255, 204, 238));
+}
+
+.stFN, .stLN {
+    font-size: 1.1rem;
+    padding-top: 10px;
+}
+
+.addSt {
+    background: linear-gradient(to right, rgb(204, 170, 238), rgb(255, 204, 238)) !important;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 0.9px;
+    margin-top: 50px;
+    margin-left: 20%;
+    margin-right:20%;
+}
+
+
+
+.addstInput {
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 1px;
+    width: 30%;
+    margin-bottom: 5px;;    
+}
+
+.addstP {
+
+}
+
+.addstBtn{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 0.9px;
+    background: linear-gradient(to left, rgb(204, 170, 238), rgb(255, 204, 238));
+}

@@ -24,7 +24,6 @@ class Test extends React.Component {
 
     componentDidMount() {
         this.setState({questions: questions}); //DATABASE
-        console.log("Test "+this.state.teacher);
     }
 
     render(){

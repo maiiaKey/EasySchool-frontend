@@ -1,0 +1,58 @@
+#buttonsBody {
+    margin-top:40px;
+    margin-left: 19%;
+    margin-right: 19%;
+    text-align: center;
+    background: linear-gradient(to right, rgb(204, 170, 238), rgb(255, 204, 238)) !important;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Open Sans';
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 1px;
+}
+
+.addAssTitle {
+    font-size: 2rem;
+}
+
+#assTitle {
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 1px;
+    width: 30%;
+}
+
+.assBtn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 0.9px;
+    background: linear-gradient(to left, rgb(204, 170, 238), rgb(255, 204, 238));
+}
+
+.assLabel {
+    font-size: 1.1rem;
+}
+
+.assNum {
+    margin-left: 10px;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 1px;
+    width: 7%;
+}
+
+.assDate {
+    margin-left: 10px;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 1px;
+    width: 1s0%;
+}
+
