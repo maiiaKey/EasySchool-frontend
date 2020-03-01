@@ -4,7 +4,6 @@ import Login from './Login';
 import './Navbar.css';
 import AssignList from '../Containers/AssignList';
 import App from '../Containers/App.js';
-//import users from "./users";
 import Display_Stud from '../Components/Display_Stud';
 import Profile from '../Containers/Profile';
 import axios from 'axios';
@@ -13,35 +12,30 @@ import { apiBaseUrl } from './config.js';
 class NavBar extends React.Component {
     constructor(props){
         super(props);
-        this.state = {students: [], users: [], teacher: this.props.teacher, visible: false, assignments: [], status: false, login: this.props.login, password: this.props.password};
+        this.state = {students: [], users: [], assignments: [], teacher: this.props.teacher, visible: false, status: false, login: this.props.login, password: this.props.password};
       }
 
     componentDidMount() {
-        //getting assignments
+        //getting Assignments from database
         var self = this;
         axios.get(apiBaseUrl+'/assignment')
         .then(function (response) {self.setState({assignments: response.data.rows});});
-        
-        //getting users
+
+        //getting Users from database
         axios.get(apiBaseUrl+'/user')
         .then(function (response) {
             self.setState({users: response.data.rows});
             const students = self.state.users.filter((user) => { return user.teacher === false});
             self.setState({students: students});
-        });    
-        
-
-
-        
+        });        
     }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.teacher !== prevProps.teacher) {
+    componentDidUpdate(prevProps) { //prevProps - a default argument that represents previous state of component's props
+        if (this.props.teacher !== prevProps.teacher) { //listening for a change in teacher value
             this.setState({teacher: this.props.teacher});
         }
-        if (this.state.teacher === true) {
+        if (this.state.teacher === true) { //if the user is teacher, showing him an additional element
             var st=document.getElementById('students');
-            st.removeAttribute('hidden');
+            st.removeAttribute('hidden'); //document object manipulation
         }
     }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import './Test.css';
 import ReactDOM from 'react-dom';
 import QuestList from '../Containers/QuestList';
-import questions from "../Components/questions.js";
 import axios from 'axios';
 import { apiBaseUrl } from '../Components/config.js';
 
@@ -13,7 +12,7 @@ import { apiBaseUrl } from '../Components/config.js';
 class Test extends React.Component { 
     constructor(props){
         super(props);
-        this.state = { tid: this.props.tid, questions: [], title: this.props.title, due_date: this.props.due_date, uid: this.props.uid,login: this.props.login, password: this.props.password, teacher:this.props.teacher};
+        this.state = { users:[], answers:[], tid: this.props.tid, questions: [], title: this.props.title, due_date: this.props.due_date, uid: this.props.uid,login: this.props.login, password: this.props.password, teacher:this.props.teacher};
     }
 
     openQuestions = () => {
@@ -21,7 +20,7 @@ class Test extends React.Component {
                 return question.assignment_id == this.state.tid;
         });
         console.log(this.state.questions);
-        const display_quest = <QuestList tid={this.state.tid} due_date={this.state.due_date} login={this.state.login} password={this.state.password} questions={testQuestions} teacher={this.state.teacher}/>;
+        const display_quest = <QuestList users={this.state.users} tid={this.state.tid} due_date={this.state.due_date} login={this.state.login} password={this.state.password} questions={testQuestions} teacher={this.state.teacher} answers={this.state.answers}/>;
         ReactDOM.render(display_quest, document.getElementById('root'));
     }
 
@@ -30,6 +29,16 @@ class Test extends React.Component {
         axios.get(apiBaseUrl+'/question')
         .then((response)=> {
             self.setState({questions: response.data.rows});
+        });
+
+        axios.get(apiBaseUrl+'/answer')
+        .then((response)=> {
+            self.setState({answers: response.data.rows});
+        });
+
+        axios.get(apiBaseUrl+'/user')
+        .then((response)=> {
+            self.setState({users: response.data.rows});
         });
     }
 

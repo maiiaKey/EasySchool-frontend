@@ -72,7 +72,7 @@ class Display_Stud extends React.Component {
                                     <span className="stFN">{student.first_name+" "}</span>
                                     <span className="stLN">{student.last_name}</span><br/>
                                     <span className="stUN">{'('+student.username+')'}</span>
-                                    <input className="stBtn" name={student.id} type="submit" value="Delete" />
+                                    <input className="stBtn" name={student.id} type="submit" value="Delete" onClick={this.deleteStudent}/>
                                 </div>
                             );
                         })

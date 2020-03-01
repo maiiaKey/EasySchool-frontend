@@ -10,7 +10,9 @@ class QuestList extends React.Component {
                     login: this.props.login, 
                     password: this.props.password, 
                     questions: this.props.questions,
-                    tid: this.props.tid
+                    tid: this.props.tid,
+                    answers:this.props.answers,
+                    users: this.props.users
                   };
     }
 
@@ -28,7 +30,7 @@ class QuestList extends React.Component {
                     teacher={this.props.teacher} />
             <div className="body">
               <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-              <DisplayQuest tid={this.state.tid} questions={this.state.questions} login={this.state.login} password={this.state.password} teacher={this.props.teacher} due_date={this.state.due_date}/>
+              <DisplayQuest users={this.state.users} tid={this.state.tid} questions={this.state.questions} answers={this.state.answers} login={this.state.login} password={this.state.password} teacher={this.props.teacher} due_date={this.state.due_date}/>
             </div> 
           </div>
         )

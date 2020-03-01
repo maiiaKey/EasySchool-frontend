@@ -5,17 +5,17 @@ import './AssignList.css';
 import AddAss from '../Components/AddAss.js';
 
 class AssignList extends React.Component {
+  //Constructor method
   constructor(props){
     super(props);
-    this.state = {login: this.props.login, password: this.props.password, teacher: this.props.teacher};
+    this.state = {login: this.props.login, //inheriting login
+                  password: this.props.password, //inheriting password
+                  teacher: this.props.teacher}; //inheriting teacher
+    //teacher property depends on whether the user is a teacher or not
+    //it can be true or false
   }
 
-  // componentDidMount(){
-  //   console.log("AssigList.login(mount) "+ this.state.login);
-  //   console.log("AssigList.pass(mount) "+ this.state.password);
-  //   if (this.state.login==="maiia" && this.state.password==="key")
-  //           this.setState({teacher: true});
-  // }
+
 
   componentDidUpdate(prevProps) {
     if (this.props.teacher !== prevProps.teacher) {

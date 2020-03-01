@@ -2,57 +2,42 @@ import React from "react";
 import Question from "../Components/Question";
 import ReactDOM from 'react-dom';
 import CorrectAnswersList from "../Components/CorrectAnswersList";
-import ViewStat from "../Containers/ViewStat.js";
+import ViewIndiv from "../Containers/ViewIndiv.js";
 import "../Components/CorrectAnswersList.css";
 import axios from 'axios';
 import { apiBaseUrl } from '../Components/config.js';
+import StudAnswersList from "../Containers/StudAnswersList";
 
 
 
 class DisplayQuest extends React.Component  {
     constructor(props){
             super(props);
-            this.state = {questions: this.props.questions, 
+            this.state = {questions: this.props.questions, //with this tid (assignment_id)
                         login: this.props.login, 
                         password: this.props.password, 
                         due_date: this.props.due_date, 
                         teacher: this.props.teacher,
-                        tid: this.props.tid
+                        tid: this.props.tid,
+                        answers: this.props.answers,
+                        uid: this.props.users.filter((u)=>{return u.username===this.props.login})[0].id
                     };
         }
 
-    // calcPieChart = async() => {
-    //     let response = await axios.get(apiBaseUrl+'/answer');
-    //     var testAnswers=response.data.rows.filter((answer) => {return answer.assignment_id===this.state.tid});
-    //     //console.log(testAnswers);
-        
-    //     var idArray = new Array(1000).fill(0);
-    //     testAnswers.map((answer)=>{
-    //         idArray[answer.user_id]++;
-    //     });
-    //     var count=0;
-    //     idArray.map((element)=>{ 
-    //         if (element!=0)
-    //             count++;
-    //     })
-    //     return count;
-    // }
-
-    // getUsers = async () => {
-    //     let response = await axios.get(apiBaseUrl+'/user');
-    //     return response.data.rows;
-    // }
+    onSubmit(){
+        alert("Thank you! Your answers were submitted.");
+    }
 
     onClick = () => {
 
-        // var completed=this.calcPieChart();
-
-        // var users=this.getUsers();
-        // //var students = users.filter((user)=>{return user.teacher===false});;            
-        // console.log(completed);
-        // //console.log(students.length);
-
-        const display_stat = <ViewStat login={this.state.login} password={this.state.password} teacher={this.state.teacher} tid={this.state.questions[0].id}/>;
+        const display_stat = <ViewIndiv 
+                                questions={this.state.questions} 
+                                answers={this.state.answers} 
+                                users={this.props.users}
+                                login={this.state.login} 
+                                password={this.state.password} 
+                                teacher={this.state.teacher} 
+                                tid={this.state.questions[0].id}/>;
         ReactDOM.render(display_stat, document.getElementById('root'));
     }
 
@@ -66,7 +51,6 @@ class DisplayQuest extends React.Component  {
                         <div className="display-body">
                             {
                                 questions.map((question, i) => {
-                                    //console.log(question);
                                     return (<Question 
                                     key={i}
                                     qid={questions[i].qid} 
@@ -86,16 +70,22 @@ class DisplayQuest extends React.Component  {
                                 })
                             }
                             <div className="btnHolder">
-                            <input id="subBut" type="submit" value="Submit" className="mybtn"/>
+                            <input id="subBut" type="submit" value="Submit" className="mybtn" onClick={this.onSubmit}/>
                             </div>
                         </div>
                     </div>
                 );}
             else {
                 return (
-                    <div>
-                        <h1>These are student's answers</h1>
-                    </div>
+                    <StudAnswersList 
+                              uid={this.state.uid}
+                              login={this.state.login} 
+                              password={this.state.password} 
+                              tid={this.state.tid} 
+                              teacher={this.state.teacher}
+                              questions={this.state.questions}
+                              answers={this.state.answers}
+                              />
                 )
             }
         }
@@ -108,7 +98,7 @@ class DisplayQuest extends React.Component  {
                                         questions={this.state.questions}
                                         
                     />
-                    <input className="testBtn" type="submit" value="View Statistics" onClick={this.onClick} />
+                    <input className="testBtn" type="submit" value="View Individual Answers" onClick={this.onClick} />
                 </div>
             )
         }

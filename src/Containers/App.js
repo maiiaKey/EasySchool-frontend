@@ -49,22 +49,19 @@ class App extends React.Component {
             this.setState({ teacher: flag });
         }
       }
-
-
-      // if (this.state.login!=="maiia")
-      //   this.setState({login: 'maiia', password: 'key', teacher:true});
     }
 
     render() {
       return (
         <div>
+          {/* custom navbar component */}
           <NavBar  
-                  visible={this.state.visible} 
-                  passLogin={this.handleLogin.bind(this)} 
-                  passPassword={this.handlePassword.bind(this)}
-                  login={this.state.login}
-                  password={this.state.password}
-                  teacher={this.state.teacher}
+                  visible={this.state.visible} //property for handling Login window 
+                  passLogin={this.handleLogin.bind(this)} //method for passing the username back to parent
+                  passPassword={this.handlePassword.bind(this)} //method for passing the password back to parent
+                  login={this.state.login} //current username
+                  password={this.state.password} //current password
+                  teacher={this.state.teacher} //true, if the user is a teacher, false if not
                   />
           <div className="homepage-content">
             <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
