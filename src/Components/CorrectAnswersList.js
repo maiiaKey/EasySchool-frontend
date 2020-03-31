@@ -5,13 +5,14 @@ class CorrectAnswersList extends React.Component {
     constructor(props){
       super(props);
       this.state = {due_date: this.props.due_date, 
-                    login: this.props.login, 
-                    password: this.props.password, 
+                    token:this.props.token, 
                     questions: this.props.questions};
     }
  
-    handleLogin = (logValue) => { this.setState({login: logValue});}
-    handlePassword = (logPass) => { this.setState({password: logPass});}
+    handleToken = (token) => {
+      this.setState({token: token});
+      this.props.handleToken(token);
+  }
 
     render(){
         const {questions} = this.state;

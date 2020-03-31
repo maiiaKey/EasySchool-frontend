@@ -1,67 +1,31 @@
 import React from 'react';
 import NavBar from '../Components/NavBar';
 import './App.css';
-import axios from 'axios';
-import { apiBaseUrl } from '../Components/config.js';
-
 
 class App extends React.Component {
     constructor(props){
       super(props);
-      this.state = {users: [], login: this.props.login, password: this.props.password, teacher: this.props.teacher};
+      this.state = {token: this.props.token, id: this.props.id};
     }
 
-    handleLogin = (logValue) => {
-      this.setState({login: logValue});
+    handleToken =(token) => {
+      this.setState({token: token});
+    }
+    handleId =(id) => {
+      this.setState({id: id});
     }
 
-    handlePassword = (logPass) => {
-      this.setState({password: logPass});
-    }
-
-    getUsers = async () => {
-      let response = await axios.get(apiBaseUrl+'/user');
-      this.setState({users: response.data.rows});
-      console.log(this.state.users);
-    }
-
-    componentDidMount() {
-      this.getUsers();
-
-    }
-    
-    componentDidUpdate() {
-      //AUTHENTICATION
-      
-      if (this.state.login !== ""){
-        const user = this.state.users.filter((user) => {
-          return (user.username===this.state.login)});
-        if (user.length === 0)
-        {
-          //non existent user
-          this.setState({login: '', password:""});
-          alert("Sorry, wrong username of password");
-        }
-        else { 
-          //updating teacher prop
-          const flag = user[0].teacher;
-          if (this.state.teacher !== flag)
-            this.setState({ teacher: flag });
-        }
-      }
-    }
 
     render() {
+      console.log("App: "+this.state.token);
       return (
         <div>
           {/* custom navbar component */}
-          <NavBar  
-                  visible={this.state.visible} //property for handling Login window 
-                  passLogin={this.handleLogin.bind(this)} //method for passing the username back to parent
-                  passPassword={this.handlePassword.bind(this)} //method for passing the password back to parent
-                  login={this.state.login} //current username
-                  password={this.state.password} //current password
-                  teacher={this.state.teacher} //true, if the user is a teacher, false if not
+          <NavBar 
+                  token={this.state.token} 
+                  handleToken={this.handleToken.bind(this)}
+                  id={this.state.id} 
+                  handleId={this.handleId.bind(this)}
                   />
           <div className="homepage-content">
             <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import NavBar from '../Components/NavBar';
 import StudAnswersList from '../Containers/StudAnswersList.js';
+import "../Containers/ViewIndiv.css";
 
 class ViewIndiv extends React.Component {
     constructor(props){
@@ -10,28 +11,32 @@ class ViewIndiv extends React.Component {
       this.state = { 
                     questions: this.props.questions,
                     answers: this.props.answers,
-                    login: this.props.login, 
-                    password: this.props.password, 
+                    token: this.props.token, 
                     tid: this.props.tid,
                     students: temp,
-                    teacher: this.props.teacher
+                    id: this.props.id
                 };
-      console.log(this.state);
     }
 
-    handleLogin = (logValue) => { this.setState({login: logValue});}
-    handlePassword = (logPass) => { this.setState({password: logPass});}
+    handleToken = (token) => {
+      this.setState({token: token});
+      this.props.handleToken(token);
+    }
+    handleId = (id) => {
+      this.setState({uid: id});
+      this.props.handleToken(id);
+    }
 
     onClick = (e) => {
-        //console.log("Student's uid: "+e.target.name)
         const display_indiv = <StudAnswersList 
                               uid={parseInt(e.target.name,10)}
-                              login={this.state.login} 
-                              password={this.state.password} 
                               tid={this.state.tid} 
-                              teacher={this.state.teacher}
+                              token={this.state.token}
+                              handleToken={this.handleToken.bind(this)}
                               questions={this.state.questions}
                               answers={this.state.answers}
+                              teacher={true}
+                              handleId={this.handleId.bind(this)}
                               />;
         ReactDOM.render(display_indiv, document.getElementById('root'));
     }
@@ -40,20 +45,19 @@ class ViewIndiv extends React.Component {
         const {students} = this.state;
         return (
           <div>
-            <NavBar visible={false} 
-                    passLogin={this.handleLogin.bind(this, 'login')} 
-                    passPassword={this.handlePassword.bind(this, 'password')} 
-                    login={this.state.login}
-                    password={this.state.password}
-                    teacher={true} />
-            <div className="body">
+            <NavBar token={this.state.token}
+                    handleToken={this.handleToken.bind(this)} 
+                    id={this.state.id}
+                    handleId={this.handleId.bind(this)} 
+            />
+            <div className="indiv-body">
               <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-                <h1>Pick a student</h1>
+                <h1 className="indiv-title">Pick a student</h1>
                 {students.map((student, i) => {
                     return(
-                        <div>
-                            <span>{student.first_name+" "+student.last_name}</span>
-                            <input type="submit" name={student.id} value="Pick" onClick={this.onClick} />
+                        <div className="indiv-content">
+                            <span className="indiv-name">{student.first_name+" "+student.last_name}</span>
+                            <input className="indiv-btn" type="submit" name={student.id} value="Pick" onClick={this.onClick} />
                         </div>
                     )
                 })}

@@ -9,29 +9,29 @@ import { apiBaseUrl } from '../Components/config.js';
 class Display_Stud extends React.Component {
     constructor(props){
         super(props);
-        this.state = {login: this.props.login, password:this.props.password, teacher: this.props.teacher, students: this.props.students, username: ''};
-        
+        this.state = {token: this.props.token, students: this.props.students, username: '', id: this.props.id};
+        console.log(this.state);
     }
 
-    handleLogin = (logValue) => {
-        this.setState({login: logValue});
+    handleToken = (token) => {
+        this.setState({token: token});
+        this.props.handleToken(token);
     }
-  
-    handlePassword = (logPass) => {
-        this.setState({password: logPass});
+    handleId =(id) => {
+        this.setState({id: id});
+        this.props.handleId(id);
     }
 
-    addStudent = (e) => {
-        //ADDING A STUDENT TO A DATABASE
-        //acces his username by this.state.username
+    addStudent = () => {
+
         var user = {
             'username': this.state.username,
             'teacher': false,
             'first_name': "",
             'last_name': "",
         }
-        axios.post(apiBaseUrl+'/user',user)
-        .then((response)=> {console.log(response)});
+        var self = this;
+        axios.post(apiBaseUrl+'/user', user, { headers: { authorization: `Bearer ${self.state.token}` } });
 
     }
 
@@ -39,30 +39,26 @@ class Display_Stud extends React.Component {
         if (prevProps.students != this.props.students) {
             this.setState({students: this.props.students});
         }
-
-
     }
 
     handleUsername = (e) => {
         this.setState({username: e.target.value});
     }
 
-    deleteStudent(e){
-        axios.delete(apiBaseUrl+'/user', e.target.name)
-        .then((res)=> {console.log(res)});
+    deleteStudent= (e) => {
+        var self = this;
+        axios.delete(apiBaseUrl+'/user/' +e.target.name, { headers: { authorization: `Bearer ${self.state.token}` } });
     }
 
 
     render(){
         return (
             <div>
-                <NavBar handlePopup={this.handleClick} 
-                  visible={false} 
-                  passLogin={this.handleLogin.bind(this)} 
-                  passPassword={this.handlePassword.bind(this)}
-                  login={this.state.login}
-                  password={this.state.password}
-                  teacher={this.state.teacher}
+                <NavBar 
+                  token={this.state.token}
+                  handleToken={this.handleToken.bind(this)}
+                  id={this.state.id}
+                  handleId={this.handleId.bind(this)}
                   />
                 <div className="stBody">
                     {
@@ -88,9 +84,6 @@ class Display_Stud extends React.Component {
         );
     }
 }
-
-
-//accessed current login, password by destructuring
 
 
 export default Display_Stud;

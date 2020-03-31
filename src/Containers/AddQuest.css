@@ -1,0 +1,27 @@
+.number-quest {
+    color: #270132;
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+.input-quest {
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 1px;
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 20%;
+    text-align: center;
+}
+.submit-quest {
+    margin-top: 5px;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    border-radius: 20px;
+    border-color: #270132;
+    border-width: 0.9px;
+    background: linear-gradient(to left, rgb(204, 170, 238), rgb(255, 204, 238));
+}

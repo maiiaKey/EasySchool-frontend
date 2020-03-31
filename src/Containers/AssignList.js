@@ -5,46 +5,35 @@ import './AssignList.css';
 import AddAss from '../Components/AddAss.js';
 
 class AssignList extends React.Component {
-  //Constructor method
   constructor(props){
     super(props);
-    this.state = {login: this.props.login, //inheriting login
-                  password: this.props.password, //inheriting password
-                  teacher: this.props.teacher}; //inheriting teacher
-    //teacher property depends on whether the user is a teacher or not
-    //it can be true or false
+    this.state = {token: this.props.token, id: this.props.id};
+  }
+ 
+  handleToken = (token) => {
+    this.setState({token: token});
+    this.props.handleToken(token);
   }
 
-
-
-  componentDidUpdate(prevProps) {
-    if (this.props.teacher !== prevProps.teacher) {
-        this.setState({teacher: this.props.teacher});
-    }
-}
-
-
-  handleLogin = (logValue) => {
-    this.setState({login: logValue});
-  }
-
-  handlePassword = (passValue) => {
-    this.setState({password: passValue});
+  handleId = (id) => {
+    this.setState({id: id});
+    this.props.handleToken(id);
   }
     
     render(){
-    const {assignments, display} = this.props;
+    const {assignments} = this.props;
       return (
         <div>
-          <NavBar passLogin={this.handleLogin.bind(this, 'login')} 
-                  passPassword={this.handlePassword.bind(this, 'password')} 
-                  login={this.state.login}
-                  password={this.state.password}
-                  teacher={this.state.teacher} />
+          <NavBar 
+                  token={this.state.token}
+                  handleToken={this.handleToken.bind(this)}
+                  id={this.state.id}
+                  handleId={this.handleId.bind(this)}
+                  />
           <div className="body">
             <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-            <DisplayAssign assignments={assignments} display={display} login={this.state.login} password={this.state.password} teacher={this.state.teacher}/>
-            <AddAss login={this.state.login} password={this.state.password} teacher={this.state.teacher} />
+            <DisplayAssign token={this.state.token} handleToken={this.handleToken.bind(this)} assignments={assignments} id={this.state.id} handleId={this.handleId.bind(this)}/>
+            <AddAss token={this.state.token} handleToken={this.handleToken.bind(this)} id={this.state.id} handleId={this.handleId.bind(this)}/>
           </div> 
         </div>
       )

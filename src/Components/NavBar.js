@@ -12,30 +12,44 @@ import { apiBaseUrl } from './config.js';
 class NavBar extends React.Component {
     constructor(props){
         super(props);
-        this.state = {students: [], users: [], assignments: [], teacher: this.props.teacher, visible: false, status: false, login: this.props.login, password: this.props.password};
+        this.state = {token: this.props.token, students: [], users: [], assignments: [], visible: false, id: this.props.id};
       }
 
-    componentDidMount() {
-        //getting Assignments from database
+    componentDidMount() { //if it is not the first Navbar in the session - token is intialized
+        //getting the needed resources from the database
         var self = this;
-        axios.get(apiBaseUrl+'/assignment')
-        .then(function (response) {self.setState({assignments: response.data.rows});});
-
-        //getting Users from database
-        axios.get(apiBaseUrl+'/user')
-        .then(function (response) {
-            self.setState({users: response.data.rows});
-            const students = self.state.users.filter((user) => { return user.teacher === false});
-            self.setState({students: students});
-        });        
+        if (this.state.token!=='') {
+            axios.get(apiBaseUrl+'/assignment', { headers: { authorization: `Bearer ${this.state.token}` } })
+            .then(function (response) {
+                self.setState({assignments: response.data.rows});});
+            axios.get(apiBaseUrl+'/user', { headers: { authorization: `Bearer ${this.state.token}` } })
+            .then(function (response) {
+                self.setState({users: response.data.rows});
+                const students = self.state.users.filter((user) => { return user.teacher === false});
+                self.setState({students: students}); }); 
+        }         
     }
-    componentDidUpdate(prevProps) { //prevProps - a default argument that represents previous state of component's props
-        if (this.props.teacher !== prevProps.teacher) { //listening for a change in teacher value
-            this.setState({teacher: this.props.teacher});
-        }
-        if (this.state.teacher === true) { //if the user is teacher, showing him an additional element
+
+    componentDidUpdate(prevState) { //if it is the first Navbar in the session - token will be intialized
+        //determining the current user in order to check if it is a teacher
+        const current_user = this.state.users.filter((user)=>{return user.id === this.state.id})[0]; 
+        if (current_user !== undefined && current_user.teacher) {
             var st=document.getElementById('students');
-            st.removeAttribute('hidden'); //document object manipulation
+            st.removeAttribute('hidden'); 
+        }
+        //getting the needed resources from the database
+        if (this.state.token !== prevState.token) {
+            var self = this;
+            axios.get(apiBaseUrl+'/assignment', { headers: { authorization: `Bearer ${this.state.token}` } })
+            .then(function (response) {
+                self.setState({assignments: response.data.rows});
+            });
+            axios.get(apiBaseUrl+'/user', { headers: { authorization: `Bearer ${this.state.token}` } })
+            .then(function (response) {
+                self.setState({users: response.data.rows});
+                const students = self.state.users.filter((user) => { return user.teacher === false});
+                self.setState({students: students});
+            }); 
         }
     }
 
@@ -48,63 +62,63 @@ class NavBar extends React.Component {
         })
     }
 
-    passLogin = (logvalue) => {
-        this.setState({login: logvalue});
-        this.props.passLogin(logvalue);
+    handleId =(id) => {
+        this.setState({id: id});
+        this.props.handleId(id);
     }
 
-    passPassword = (passvalue) => {
-        this.setState({password: passvalue});
-        this.props.passPassword(passvalue);
+    handleToken = (token) => {
+        this.setState({token: token});
+        this.props.handleToken(token);
     }
+
 
     openHomePage = () => {
-        const display_app = <App login={this.state.login} password={this.state.password} teacher={this.state.teacher}/>;
+        const display_app = <App token={this.state.token} id={this.state.id}/>;
         ReactDOM.render(display_app, document.getElementById('root'));
     }
 
 
     openAssignList = () => {
-        if (this.state.login !== "" && this.state.password !== "") 
+        if (this.state.token!=="")
             {
                 this.setState({status: true}, function () {
                         const display_ass = <AssignList 
-                        assignments={this.state.assignments} 
-                        display={this.state.status} 
-                        login={this.state.login}
-                        password={this.state.password}
-                        teacher={this.state.teacher}/>;
+                        token={this.state.token} 
+                        handleToken={this.handleToken.bind(this)}
+                        assignments={this.state.assignments}
+                        id={this.state.id}
+                        handleId={this.handleId.bind(this)}
+                        />;
                     ReactDOM.render(display_ass, document.getElementById('root'));
                 });
             }
         else {
-            const display_ass = <AssignList assignments={this.state.assignments} display={false} login={this.state.login}
-            password={this.state.password} teacher={this.state.teacher}/>;
+            const display_ass = <AssignList token={this.state.token} handleToken={this.handleToken.bind(this)} assignments={this.state.assignments} id={this.state.id} handleId={this.handleId.bind(this)}/>;
             ReactDOM.render(display_ass, document.getElementById('root'));
         }
         
     }
 
     openStudents = () => {
-        console.log("Navbar");
-        console.log(this.state.users);
-        const display_stud = <Display_Stud login={this.state.login} password={this.state.password} teacher={this.state.teacher} students={this.state.students}/>;
+        const display_stud = <Display_Stud token={this.state.token} handleToken={this.handleToken.bind(this)} students={this.state.students} id={this.state.id} handleId={this.handleId.bind(this)}/>;
         ReactDOM.render(display_stud, document.getElementById('root'));
     }
 
     openProfile = () => {
-        const display_prof = <Profile login={this.state.login} password={this.state.password} teacher={this.state.teacher} users={this.state.users}/>;
+        const current_user = this.state.users.filter((user)=>{return user.id === this.state.id})[0];
+        const display_prof = <Profile token={this.state.token} handleToken={this.handleToken.bind(this)} user={current_user} id={this.state.id} handleId={this.handleId.bind(this)}/>;
         ReactDOM.render(display_prof, document.getElementById('root'));
     }
 
     
 
     render() {
-
     return (
             <div>
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"></link>
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous"></link>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+                      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous"></link>
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
                     <a className="navbar-brand" href="#" onClick={this.openHomePage}>EasySchool</a>
                     <div className="" id="navbarSupportedContent">
@@ -113,7 +127,7 @@ class NavBar extends React.Component {
                             <a className="nav-link" href="#" onClick={this.openHomePage}>Home</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#" onClick={this.handleVisible}> Login</a>
+                            <a className="nav-link" href="#" onClick={this.handleVisible}>Login</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#" onClick={this.openAssignList}>Assignments</a>
@@ -129,11 +143,10 @@ class NavBar extends React.Component {
                 </nav>
                 <Login visible={this.state.visible}
                        handleVisible={this.handleVisible} 
-                       getLogin={this.passLogin.bind(this)}
-                       getPassword={this.passPassword.bind(this)}
-                       changeFlag={this.changeStatus}
-                       login={this.state.login}
-                       password={this.state.password}
+                       token={this.state.token}
+                       handleToken={this.handleToken.bind(this)}
+                       id={this.state.id}
+                       handleId={this.handleId.bind(this)}
                     />
                             
             </div>

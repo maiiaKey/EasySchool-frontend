@@ -3,8 +3,8 @@ import Test from './Test';
 import './DisplayAssign.css';
 
 
-const DisplayAssign = ({ assignments, display, login, password, teacher })  => {
-    if (display) {
+const DisplayAssign = ({ assignments, token, id, handleId})  => {
+    if (token!=="") {
         return (
             <div>
                 <div className="body">
@@ -16,9 +16,9 @@ const DisplayAssign = ({ assignments, display, login, password, teacher })  => {
                             uid={assignments[i].user_id} 
                             due_date={assignments[i].due_date} 
                             title={assignments[i].title}
-                            login={login}
-                            password={password}
-                            teacher={teacher}
+                            token={token}
+                            id={id}
+                            handleId={handleId}
                             />);
                         })
                     }
